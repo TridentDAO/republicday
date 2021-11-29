@@ -100,7 +100,7 @@
         transform: rotate(-5deg);
         background-color: #ff9933;
         color: #fff;
-        z-index: 3;
+        z-index: 1;
         border-radius: 15px 50px;
       }
       #tit3 {
@@ -146,7 +146,7 @@
         padding: 10px 20px;
         letter-spacing: 3px;
         position: absolute;
-        top: 40%;
+        top: 35%;
         border-radius: 20px;
       }
 
@@ -186,8 +186,7 @@
         color: transparent;
         font-size: 10vw;
         font-family: "Source Sans Pro", sans-serif;
-        animation: reveal 3000ms ease-in-out forwards 200ms,
-          glow 2500ms linear infinite 2000ms;
+        /* animation: glow 2500ms linear infinite 2000ms; */
       }
       @keyframes reveal {
         80% {
@@ -207,28 +206,114 @@
         border-radius: 12px;
       }
 
-
+      .curtain {
+        margin: 0 auto;
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+        z-index: 20;
+      }
+      .curtain__wrapper {
+        width: 100%;
+        height: 100%;
+      }
+      .curtain__wrapper input[type="checkbox"] {
+        position: absolute;
+        cursor: pointer;
+        width: 100%;
+        height: 100%;
+        z-index: 100;
+        opacity: 0;
+        top: 0;
+        left: 0;
+      }
+      .curtain__wrapper
+        input[type="checkbox"]:checked
+        ~ div.curtain__panel--left {
+        transform: translateX(0);
+      }
+      .curtain__wrapper
+        input[type="checkbox"]:checked
+        ~ div.curtain__panel--right {
+        transform: translateX(0);
+      }
+      .curtain__panel {
+        display: flex;
+        align-items: center;
+        background: orange;
+        color: #fff;
+        float: left;
+        position: relative;
+        width: 50%;
+        height: 100vh;
+        transition: all 1s ease-out;
+        z-index: 2;
+      }
+      .curtain__panel--left {
+        justify-content: flex-end;
+        transform: translateX(-100%);
+      }
+      .curtain__panel--right {
+        justify-content: flex-start;
+        transform: translateX(100%);
+      }
+      .curtain__content {
+        align-items: center;
+        background: #333;
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        justify-content: center;
+        padding: 1rem 0;
+        position: absolute;
+        text-align: center;
+        z-index: 1;
+        width: 100%;
+      }
+      .curtain__content img {
+        width: 20%;
+      }
     </style>
   </head>
   <body>
-    <div>
-      <div class="greet">
-        <img id="minar" src="minar.png" width="30px" height="100px" />
-        <!-- <img id="flag" src="flag.gif" width="40px" height="100px" /> -->
-        <img id="taj" src="taj.png" width="150px" height="90px" />
-        <img id="chakra" src="chakra.png" width="180px" height="180px" />
-        <h3 id="tit1">Happy</h3>
-        <!-- <h3 id="tit2">Republic</h3> -->
-        <h3 id="tit3">Republic Day</h3>
+    <div class="curtain">
+      <div class="curtain__wrapper">
+        <input type="checkbox" checked />
+
+        <div class="curtain__panel curtain__panel--left">
+          <h1>Click on Screen&nbsp;</h1>
+        </div>
+        <!-- curtain__panel -->
+
+        <div>
+          <div class="greet">
+            <img id="minar" src="minar.png" width="30px" height="100px" />
+            <!-- <img id="flag" src="flag.gif" width="40px" height="100px" /> -->
+            <img id="taj" src="taj.png" width="150px" height="90px" />
+            <img id="chakra" src="chakra.png" width="180px" height="180px" />
+            <h3 id="tit1">Happy</h3>
+            <!-- <h3 id="tit2">Republic</h3> -->
+            <h3 id="tit3">Republic Day</h3>
+          </div>
+          <h1 id="heading"><span>26th</span> January</h1>
+          <h2 id="myname"></h2>
+          <div class="mybanner">
+            <img id="gifimage" src="republicday.gif" width="300px" />
+          </div>
+          <div class="sendName">
+            <a id="shareBtn">👉 मित्रांना पाठवा 👈</a>
+          </div>
+        </div>
+
+        <div class="curtain__panel curtain__panel--right">
+          <h1>to see Magic...</h1>
+        </div>
+        <!-- curtain__panel -->
       </div>
-      <h2 id="myname"></h2>
-      <div class="mybanner">
-        <img id="gifimage" src="republicday2.gif" width="200px" />
-      </div>
-      <div class="sendName">
-        <a id="shareBtn">👉 मित्रांना पाठवा 👈</button>
-      </div>
+      <!-- curtain__wrapper -->
     </div>
+    <!-- curtain -->
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
@@ -240,9 +325,22 @@
         $("#myname").text(pair[1]);
         $("#myname").attr("data-shadow", pair[1]);
         document.title = "Wish from " + pair[1];
-        $("#shareBtn").attr("href","whatsapp://send?text=🤗 *"+pair[1]+"* यांनी तुमच्यासाठी काहीतरी पाठवले 🎁 %0A*💁 खालील निळ्या रेषेला स्पर्श करा!* %0A  💥 🔥 😱 😱 👇 👇 %0A http://127.0.0.1:5500/share.html?n="+pair[1]+"%0A")
+        $("#shareBtn").attr(
+          "href",
+          "whatsapp://send?text=🤗 *" +
+            pair[1] +
+            "* यांनी तुमच्यासाठी काहीतरी पाठवले 🎁 %0A*💁 खालील निळ्या रेषेला स्पर्श करा!* %0A  💥 🔥 😱 😱 👇 👇 %0A http://127.0.0.1:5500/share.html?n=" +
+            pair[1] +
+            "%0A"
+        );
       }
 
+      $(".curtain__wrapper").click(() => {
+        $("#myname").css(
+          "animation",
+          "reveal 3000ms ease-in-out forwards 200ms \, glow 2500ms linear infinite 2000ms;"
+        );
+      });
 
       $("#yourname").focusout(() => {
         $(".sendName").css(
