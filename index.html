@@ -231,11 +231,13 @@
         input[type="checkbox"]:checked
         ~ div.curtain__panel--left {
         transform: translateX(0);
+        /* display: none; */
       }
       .curtain__wrapper
         input[type="checkbox"]:checked
         ~ div.curtain__panel--right {
         transform: translateX(0);
+        /* display: none; */
       }
       .curtain__panel {
         display: flex;
@@ -279,7 +281,7 @@
   <body>
     <div class="curtain">
       <div class="curtain__wrapper">
-        <input type="checkbox" checked />
+        <input id="slideBtn" type="checkbox" checked />
 
         <div class="curtain__panel curtain__panel--left">
           <h1>Click on Screen&nbsp;</h1>
@@ -302,7 +304,12 @@
             <img id="gifimage" src="republicday.gif" width="300px" />
           </div>
           <div class="sendName">
-            <a id="shareBtn">👉 मित्रांना पाठवा 👈</a>
+            <input
+              id="yourname"
+              maxlength="50"
+              placeholder="👉 तुमचे नाव इथे लिहा... 👈"
+            />
+            <button id="shareBtn">👉 पहा</button>
           </div>
         </div>
 
@@ -317,29 +324,40 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
+      let audio = new Audio("audio.mp3");
+      var isPlaying = false;
+      audio.onplaying = function () {
+        isPlaying = true;
+      };
+      audio.onpause = function () {
+        isPlaying = false;
+      };
       var currentUrl = window.location.href;
       console.log(currentUrl);
       let paramString = currentUrl.split("?")[1];
       let queryString = new URLSearchParams(paramString);
       for (let pair of queryString.entries()) {
-        $("#myname").text(pair[1]);
-        $("#myname").attr("data-shadow", pair[1]);
-        document.title = "Wish from " + pair[1];
-        $("#shareBtn").attr(
-          "href",
-          "whatsapp://send?text=🤗 *" +
-            pair[1] +
-            "* यांनी तुमच्यासाठी काहीतरी पाठवले 🎁 %0A*💁 खालील निळ्या रेषेला स्पर्श करा!* %0A  💥 🔥 😱 😱 👇 👇 %0A http://127.0.0.1:5500/share.html?n=" +
-            pair[1] +
-            "%0A"
-        );
+        let name = pair[1].split("-");
+        $("#myname").text(name[0] + " " + name[1]);
+        $("#myname").attr("data-shadow", name[0] + " " + name[1]);
+        document.title = "Happy Republic Day from " + name[0] + " " + name[1];
       }
 
       $(".curtain__wrapper").click(() => {
         $("#myname").css(
           "animation",
-          "reveal 3000ms ease-in-out forwards 200ms \, glow 2500ms linear infinite 2000ms;"
+          "reveal 3000ms ease-in-out forwards 200ms"
         );
+        audio.play();
+        setTimeout(() => {
+          $(".curtain__panel").hide();
+          $("#slideBtn").hide();
+        }, 1000);
+      });
+
+      $("#shareBtn").click(() => {
+        let myname = $("#yourname").val();
+        window.open("share.html?n=" + myname, "_blank");
       });
 
       $("#yourname").focusout(() => {
