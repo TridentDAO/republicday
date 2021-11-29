@@ -333,14 +333,20 @@
         isPlaying = false;
       };
       var currentUrl = window.location.href;
-      console.log(currentUrl);
+      // console.log(currentUrl);
       let paramString = currentUrl.split("?")[1];
       let queryString = new URLSearchParams(paramString);
       for (let pair of queryString.entries()) {
         let name = pair[1].split("-");
-        $("#myname").text(name[0] + " " + name[1]);
-        $("#myname").attr("data-shadow", name[0] + " " + name[1]);
-        document.title = "Happy Republic Day from " + name[0] + " " + name[1];
+        if (name[1]) {
+          $("#myname").text(name[0] + " " + name[1]);
+          $("#myname").attr("data-shadow", name[0] + " " + name[1]);
+          document.title = "Happy Republic Day from " + name[0] + " " + name[1];
+        } else {
+          $("#myname").text(name[0]);
+          $("#myname").attr("data-shadow", name[0]);
+          document.title = "Happy Republic Day from " + name[0];
+        }
       }
 
       $(".curtain__wrapper").click(() => {

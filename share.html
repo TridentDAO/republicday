@@ -240,7 +240,7 @@
         $("#myname").text(pair[1]);
         $("#myname").attr("data-shadow", pair[1]);
         document.title = "Wish from " + pair[1];
-        let name = pair[1].split(" ");
+        let name = pair[1].split("-");
         console.log(name[0]);
         console.log(name[1]);
         $("#shareBtn").attr("href","whatsapp://send?text=🤗 *"+pair[1]+"* यांनी तुमच्यासाठी काहीतरी पाठवले 🎁 %0A*💁 खालील निळ्या रेषेला स्पर्श करा!* %0A  💥 🔥 😱 😱 👇 👇 %0A https://tridentdao.github.io/republicday/index.html?n="+name[0]+"-"+name[1]+"%0A")
