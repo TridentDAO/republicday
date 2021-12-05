@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Happy Republic Day</title>
-    <style>
+     <style>
       @import url("https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap");
       @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro");
       * {
@@ -146,7 +146,7 @@
         padding: 10px 20px;
         letter-spacing: 3px;
         position: absolute;
-        top: 35%;
+        top: 30%;
         border-radius: 20px;
       }
 
@@ -169,15 +169,15 @@
       #myname {
         /* text-shadow: 5px 5px 0 rgb(76, 170, 146); */
         position: absolute;
-        top: 0;
-        color: rgb(255, 255, 255);
+        top: 46%;
+        color: rgb(97, 97, 97);
         font-size: 3.5em;
         width: 100%;
         text-align: center;
         background: 50% 100% / 50% 50% no-repeat
           radial-gradient(
             ellipse at bottom,
-            rgb(255, 255, 255),
+            rgb(2, 27, 255),
             transparent,
             transparent
           );
@@ -186,7 +186,8 @@
         color: transparent;
         font-size: 10vw;
         font-family: "Source Sans Pro", sans-serif;
-        /* animation: glow 2500ms linear infinite 2000ms; */
+        animation: reveal 3000ms ease-in-out forwards 200ms,
+          glow 2500ms linear infinite 2000ms;
       }
       @keyframes reveal {
         80% {
@@ -242,8 +243,16 @@
       .curtain__panel {
         display: flex;
         align-items: center;
-        background: orange;
-        color: #fff;
+        /* background: orange; */
+        background: rgb(0, 186, 9);
+        background: linear-gradient(
+          20deg,
+          rgba(0, 186, 9, 1) 0%,
+          rgba(255, 255, 255, 1) 38%,
+          rgba(255, 153, 0, 1) 100%
+        );
+        background-repeat: no-repeat;
+        color: rgb(0, 47, 255);
         float: left;
         position: relative;
         width: 50%;
@@ -298,7 +307,7 @@
         <input id="slideBtn" type="checkbox" checked />
 
         <div class="curtain__panel curtain__panel--left">
-          <h1>Click on Screen&nbsp;</h1>
+          <h1 style="margin: 0 20px">Happy Republic Day &nbsp;</h1>
         </div>
         <!-- curtain__panel -->
 
@@ -313,7 +322,7 @@
             <h3 id="tit3">Republic Day</h3>
           </div>
           <h1 id="heading"><span>26th</span> January</h1>
-          <h2 id="myname"></h2>
+          <!-- <h2 id="myname">From <span id="myfrom"></span></h2> -->
           <div class="mybanner">
             <img id="gifimage" src="republicday.gif" width="300px" />
           </div>
@@ -321,14 +330,15 @@
             <input
               id="yourname"
               maxlength="50"
-              placeholder="👉 तुमचे नाव इथे लिहा... 👈"
+              placeholder="👉 Enter Your Name... 👈"
             />
-            <button id="shareBtn">👉 पहा</button>
+            <button id="shareBtn">👉 Create</button>
           </div>
+          
         </div>
 
         <div class="curtain__panel curtain__panel--right">
-          <h1>to see Magic...</h1>
+          <h1 style="margin: 0 20px;">From <span id="myfrom"></span></h2>
         </div>
         <!-- curtain__panel -->
       </div>
@@ -353,22 +363,24 @@
       for (let pair of queryString.entries()) {
         let name = pair[1].split("-");
         if (name[1]) {
-          $("#myname").text(name[0] + " " + name[1]);
-          $("#myname").attr("data-shadow", name[0] + " " + name[1]);
+          $("#myfrom").text(name[0] + " " + name[1]);
+          $("#myfrom").attr("data-shadow", name[0] + " " + name[1]);
           document.title = "Happy Republic Day from " + name[0] + " " + name[1];
         } else {
-          $("#myname").text(name[0]);
-          $("#myname").attr("data-shadow", name[0]);
+          $("#myfrom").text(name[0]);
+          $("#myfrom").attr("data-shadow", name[0]);
           document.title = "Happy Republic Day from " + name[0];
         }
       }
+
+      // audio.play();
 
       $(".curtain__wrapper").click(() => {
         $("#myname").css(
           "animation",
           "reveal 3000ms ease-in-out forwards 200ms"
         );
-        audio.play();
+        // audio.play();
         setTimeout(() => {
           $(".curtain__panel").hide();
           $("#slideBtn").hide();
@@ -387,5 +399,5 @@
         );
       });
     </script>
-  </body>
+   </body>
 </html>
